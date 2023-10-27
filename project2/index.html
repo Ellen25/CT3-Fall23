@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>project 1</title>
+
+   
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <div class="mainpage">
+      <a>PROJECT 2:</a>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/nFoYK0LTES8?si=ulcZ-B6jG5fpzBeN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <hr>
+      <a>1. Concept & Diagram</a>
+      <img src="diagram.jpg">
+      <p>The synthetic relationship in the nature world brought inspiration in terms of the intersecting communication: flowers blossom when facing enough sunlight, leading to a harmonious environment, which can furtherly create a proper atmosphere for the better growth of the plants</p>
+      <p>Therefore, I marked the 'flower' and the 'light' as two key embodier to show the visualize the data interaction. They were also going to send data out to each other. Relatively, the brightness of the light would be detected by a photoresistor. And for the flower, I decided to use a servo motor attached to a origami flower so that the flower will blossom as it is dragged by the motor. The sound made by the motor would be captured by a sound sensor, which will furtherly trigger the light.</p>
+      <a>2. Development#1</a>    
+      <p>servo motor & flower movement</p>
+      <img src="flower1.jpg">
+      <p>I started from connecting the servo motor with the origami flower. At first, I used a metal wire to stick the motor and the petal together. But the wire was too strong and hard which pulled the petal out and could berely come back. </p>
+      <p>Then I changed the wire with a soft wire, which turned out to be too soft to make any changes. After some experiments, I decided to combine the metal wire with the soft one, so that the wire can be bent and to have some margin for small adjustments, while also have some supporting force to hold and drag the petal</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/CQFmzTw0f44?si=Cjs-dZ0xcbPtVb5N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <p>The motor would be triggered if the brightness of the environment reached to a certain point.</p>
+      <p>At first, I added the if statement triggering the motor directly in the handleMessage() function, which cause a huge delay. I then found out that I can make the code more efficient by simply adding a variable to store and call the data that would be passed:</p>
+      <img src="motor1.png">
+      <a>3. Development#2 </a>
+      <p>sound sensor</p>
+      <img src="soundsensor.JPG">
+      <p>I used a microphone sound sensor to capture the sound made by the motor, and to further trigger the LEDs. Since the sound made by the motor is subtle, I adjust a bit of the threshold of the sensor with its knob on the back.</p>
+      <img src="sounddata1.png">
+      <p>One important insight was that the data of the sound sensor is digital, which means only 1 and 0 can be output. However, due to the limitation of the IO and the efficiency requirements, the sound tracking might not be record and sent every settled time.</p>
+      <p>After turning to TAs and the Arduino examples of the digital_in, I added a boolean so that the data would be sent everytime the sound is detected:</p>
+      <img src="sounddata2.png">
+      <a>4. **Development#4</a>
+      <p>**photoresistor</p>
+      <p>This part, as arranged, should be covered by my partner. However, since it is so tightly connected with the motor movement that I have created, I decided to create another feed on my IO to hold the data from the photoresistor</p>
+      <img src="photoresistor1.png">
+      <img src="photoresistor2.png">
+      <a>5. Conclusion & Reflection</a>
+      <p>The topic of a symbiotic relationship is intriguing. The interactive relationship of "It is pitying me, while I am feeding it" came to my mind when seeing the prompt. Therefore, how to circulate the diagram and to make the process loop and connect with each other became a tough decision. Therefore, I believe that plants and nature can explain this complex correlation well in the form of expression.</p>
+      <p>Also, I do believe that the communication and the cooperation among people who spending effort to build the synthetic relationship is an essential part in this project. The process of sending and downloading data is also a representation of how the interactive relationship should be made.</p>
+
+    </div>
+   
+  </body>
+</html>
