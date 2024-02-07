@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Lib Poem!</title>
+    <style>
+        .sps {
+            background-color: black;
+            color: aqua;
+            display: inline-block;
+        }
+        p {
+            margin: 5px;
+        }
+        #main {
+            text-align: center;
+            margin: 0 auto;
+        }
+        .p {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        button {
+            margin: 50px;
+        }
+        .poemTitle {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+        body {
+            background-color: #FAF2EB;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    </header>
+    <main id = "main">
+        <button id = "startButton">RUN THE MAD-LIB MACHINE!</button>
+        <p class="poemTitle">Decisive Moments in RAP History</p>
+        <div class="p"> Although there is an <div id = "space1" class="sps"></div>, <br>
+            the red haze lays hot <div id = "space2" class="sps"></div> across my squinted brow,<br>
+            the clear-spoiling-yellow chemicals conjuring <br>
+            darkening images below the glow of crimson light.<br>
+            <br>
+            It rises above the cluttered bathroom,<br>
+            not household in intent,a condenser lens <br>
+            lit by aging bulb.<br>
+            It facilitates the spirit of <div id = "space3" class="sps"></div><br>
+            <br>
+            but will not imagine or see. Only after<br>
+            <div id = "space4" class="sps"></div> it creates, a golden projection<br>
+            over <div id = "space5" class="sps"></div>, and finally,<br>
+            almost like magic, something emerges, finally affixed,<br>
+            <br>
+            while it presents <div id = "space5" class="sps"></div> forever.
+    </div>
+
+    </main>
+
+    <script>
+        let startBTN = document.getElementById("startButton")
+        let mainELEM = document.getElementById("main")
+        let poemLN1 = document.getElementById("space1")
+        let poemLN2 = document.getElementById("space2")
+        let poemLN3 = document.getElementById("space3")
+        let poemLN4 = document.getElementById("space4")
+        let poemLN5 = document.getElementById("space5")
+
+        let nasaLN1 = document.getElementById("space1")
+        let nasaLN2 = document.getElementById("space2")
+        let nasaLN3 = document.getElementById("space3")
+        let nasaLN4 = document.getElementById("space4")
+        let nasaLN5 = document.getElementById("space5")
+
+        let rdm1 = Math.floor(Math.random()*20)
+        let rdm2 = Math.floor(Math.random()*20)
+        let rdm3 = Math.floor(Math.random()*20)
+        let rdm4 = Math.floor(Math.random()*20)
+        let rdm5 = Math.floor(Math.random()*20)
+
+        // let cocktailURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
+        let cocktailURL = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/rapworld/records?limit=20"
+
+        let nasaAPODurl = "https://data.nasa.gov/resource/gh4g-9sfh.json"
+
+        let fetchCocktailData = () =>{
+            console.info("clicked!");
+            fetch(cocktailURL)
+                .then((response) => response.json()) //convert data into json; "response"in () is whatever name offered to the data received
+                //.then((payload) => console.log(payload))
+               .then((payload) => appendCocktailData(payload)) //need to call the append func after data is fetched
+        }
+
+        let appendCocktailData = (data) =>{
+            let drkName1 = data.results[rdm1].name
+            let drkName2 = data.results[rdm2].name
+            let drkName3 = data.results[rdm3].name
+            let drkName4 = data.results[rdm4].name
+            let drkName5 = data.results[rdm5].name
+            //let drkImg = data.drinks[0].strDrinkThumb
+
+            // let nameHolder = document.createElement("h3")
+            // nameHolder.innerText = drkName
+            // mainELEM.appendChild(nameHolder)
+            let nameHolder1 = document.createElement("p")
+            nameHolder1.innerText = drkName1
+            poemLN1.appendChild(nameHolder1)
+            let nameHolder2 = document.createElement("p")
+            nameHolder2.innerText = drkName2
+            poemLN2.appendChild(nameHolder2)
+            let nameHolder3 = document.createElement("p")
+            nameHolder3.innerText = drkName3
+            poemLN3.appendChild(nameHolder3)
+            let nameHolder4 = document.createElement("p")
+            nameHolder4.innerText = drkName4
+            poemLN4.appendChild(nameHolder4)
+            let nameHolder5 = document.createElement("p")
+            nameHolder5.innerText = drkName5
+            poemLN5.appendChild(nameHolder5)
+
+            // let imageHolder = document.createElement("img")
+            // imageHolder.src = drkImg
+            // mainELEM.appendChild(imageHolder)
+
+            const a = new Date(data.results[rdm1].bio_yearsactivestart)
+            // const dateForNASAAPI = a.getUTCFullYear().toString()+"-"+(a.getUTCMonth()+1).toString()+"-"+a.getUTCDay()
+            const dateForNASAAPI = a.getUTCFullYear().toString()+"-01-01"
+            // console.log(dateForNASAAPI)
+
+            fetchNASAData(dateForNASAAPI)
+        }
+
+        // https://data.nasa.gov/resource/gh4g-9sfh.json?$query=SELECT%20name%2C%20id%2C%20nametype%2C%20recclass%2C%20mass%2C%20fall%2C%20year%2C%20reclat%2C%20reclong%2C%20geolocation%20WHERE%20%60year%60%20IN%20('2011-01-01T00%3A00%3A00.000')
+
+        const fetchNASAData = (picDate) => {
+            // const fetchURL = nasaAPODurl + "?" - "year=" + picDate
+            const fetchURL = "https://data.nasa.gov/resource/gh4g-9sfh.json?$query=SELECT%20name%2C%20id%2C%20nametype%2C%20recclass%2C%20mass%2C%20fall%2C%20year%2C%20reclat%2C%20reclong%2C%20geolocation%20WHERE%20%60year%60%20IN%20('"+ picDate +"T00%3A00%3A00.000')"
+            fetch(fetchURL)
+                .then((payload) => payload.json())
+                //.then((json) => console.log(json))
+                .then((json) => appendNASAData(json))
+        }
+
+        const appendNASAData = (data) => {
+            console.log(data)
+
+            const picTitle1 = data[rdm1].name
+            const picTitle2 = data[rdm2].name
+            const picTitle3 = data[rdm3].name
+            const picTitle4 = data[rdm4].name
+            const picTitle5 = data[rdm5].name
+
+            let nasaHolder1 = document.createElement("p")
+            nasaHolder1.innerText = picTitle1
+            poemLN1.appendChild(nasaHolder1)
+            let nasaHolder2 = document.createElement("p")
+            nasaHolder2.innerText = picTitle2
+            poemLN2.appendChild(nasaHolder2)
+            let nasaHolder3 = document.createElement("p")
+            nasaHolder3.innerText = picTitle3
+            poemLN3.appendChild(nasaHolder3)
+            let nasaHolder4 = document.createElement("p")
+            nasaHolder4.innerText = picTitle4
+            poemLN4.appendChild(nasaHolder4)
+            let nasaHolder5 = document.createElement("p")
+            nasaHolder5.innerText = picTitle5
+            poemLN5.appendChild(nasaHolder5)
+        }
+
+
+
+
+
+        startBTN.addEventListener("click", fetchCocktailData)
+    </script>
+</body>
+</html>
